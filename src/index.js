@@ -1,17 +1,47 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+// import React from 'react'
+// import ReactDOM from 'react-dom'
+import React from './react'
+import ReactDOM from './react/react-dom'
+import Component from './react/Component'
+import './index.css'
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+/**
+ * 1. webpack+babel编译时，替换JSX为React.createElement(type,props,...children)
+ * 2. 所有React.createElement()执行结束后得到一个JS对象即vdom，它能够完整描述dom结构
+ * 3. ReactDOM.render(vdom, container)可以将vdom转换为dom并追加到container中
+ * 4. 实际上，转换过程需要经过一个diff过程。
+ */
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+function FunctionComponent({ name }) {
+  return (
+    <div className="border">
+      {name}
+      <button onClick={() => console.log('omg')}>click</button>
+    </div>
+  )
+}
+
+class ClassComponent extends Component {
+  static defaultProps = {
+    test: 'defaultProps'
+  }
+
+  render() {
+    return (
+      <div className="border">
+        <h1>{this.props.name}</h1>
+        <h2 className="border">{this.props.test}</h2>
+      </div>
+    )
+  }
+}
+
+const jsx = (
+  <div className="border">
+    <h1>react source achieve</h1>
+    <FunctionComponent name="FunctionComponent" />
+    <ClassComponent name="ClassComponent" />
+  </div>
+)
+
+ReactDOM.render(jsx, document.getElementById('root'))
