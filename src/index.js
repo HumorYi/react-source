@@ -40,7 +40,22 @@ const jsx = (
   <div className="border">
     <h1>react source achieve</h1>
     <FunctionComponent name="FunctionComponent" />
-    <ClassComponent name="ClassComponent" />
+    <ClassComponent name="ClassComponent" color="red" />
+    <>
+      <h1>aa</h1>
+      <h1>bb</h1>
+    </>
+    {/* {[1, 2, 3].map(item => {
+      return <div key={item}>{item}</div>
+    })} */}
+    {[1, 2, 3].map(item => {
+      return (
+        <React.Fragment key={item}>
+          <h1>文本{item}</h1>
+          <h2>文本{item}</h2>
+        </React.Fragment>
+      )
+    })}
   </div>
 )
 

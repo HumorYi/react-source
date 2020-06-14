@@ -19,6 +19,8 @@ function createNode(vnode, parentNode) {
     node = document.createElement(type)
   } else if (typeof type === 'function') {
     node = type.isReactComponent ? updateClassComponent(vnode, parentNode) : updateFunctionComponent(vnode, parentNode)
+  } else {
+    node = document.createDocumentFragment()
   }
 
   reconcileChildren(props.children, node)
@@ -44,7 +46,7 @@ function updateFunctionComponent(vnode, parentNode) {
 }
 
 function reconcileChildren(children, node) {
-  children.forEach(child => render(child, node))
+  children.forEach(child => (Array.isArray(child) ? reconcileChildren(child, node) : render(child, node)))
 }
 
 function updateNode(node, props) {

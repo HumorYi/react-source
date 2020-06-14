@@ -9,14 +9,14 @@ function createElement(type, config, ...children) {
     delete config.__source
   }
 
-  const outputConfig = filterConfig(config)
-
-  type.defaultProps && filterConfig(type.defaultProps, outputConfig)
+  const outputConfig = config ? filterConfig(config) : {}
 
   const props = {
     ...outputConfig,
     children: children.map(child => (typeof child === 'object' ? child : createTextNode(child)))
   }
+
+  type && type.defaultProps && filterConfig(type.defaultProps, props)
 
   return {
     type,
@@ -35,11 +35,13 @@ function createTextNode(text) {
 }
 
 // 过滤掉 key、ref等
-function filterConfig(config, outputConfig = {}, excludes = ['key', 'ref']) {
+function filterConfig(config, outputConfig = {}, excludes = ['key', 'ref', 'children']) {
   Object.keys(config)
     .filter(key => !excludes.includes(key))
     .forEach(key => {
-      outputConfig[key] = config[key]
+      if (outputConfig[key] === undefined) {
+        outputConfig[key] = config[key]
+      }
     })
 
   return outputConfig
