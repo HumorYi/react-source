@@ -1,8 +1,7 @@
 // import React from 'react'
 // import ReactDOM from 'react-dom'
-import React from './react'
-import ReactDOM from './react/react-dom'
-import Component from './react/Component'
+import React, { Component } from './react'
+import ReactDOM, { useState } from './react-dom'
 import './index.css'
 
 /**
@@ -13,10 +12,15 @@ import './index.css'
  */
 
 function FunctionComponent({ name }) {
+  const [count, setCount] = useState(0)
+
   return (
     <div className="border">
       {name}
-      <button onClick={() => console.log('omg')}>click</button>
+      <button onClick={() => setCount(count + 1)}>click add:{count}</button>
+      <div className="border">
+        {count % 2 > 0 ? <button onClick={() => console.log('omg')}>omg</button> : <div>test</div>}
+      </div>
     </div>
   )
 }
