@@ -40,11 +40,39 @@ class ClassComponent extends Component {
   }
 }
 
+function DiffPage(props) {
+  const [count, setCount] = useState(0)
+
+  return (
+    <div className="border">
+      <button onClick={() => setCount(count + 1)}>toggle</button>
+
+      {count % 2 ? (
+        <ul>
+          <li key="0">0</li>
+          <li key="1">1</li>
+          <li key="2">2</li>
+          <li key="3">3</li>
+          <li key="4">4</li>
+        </ul>
+      ) : (
+        <ul>
+          <li key="0">0</li>
+          <li key="2">2</li>
+          <li key="3">3</li>
+          <li key="4">4</li>
+        </ul>
+      )}
+    </div>
+  )
+}
+
 const jsx = (
   <div className="border">
-    <h1>react source achieve</h1>
+    <DiffPage />
+    {/* <h1>react source achieve</h1>
     <FunctionComponent name="FunctionComponent" />
-    <ClassComponent name="ClassComponent" color="red" />
+    <ClassComponent name="ClassComponent" color="red" /> */}
     {/* <>
       <h1>aa</h1>
       <h1>bb</h1>

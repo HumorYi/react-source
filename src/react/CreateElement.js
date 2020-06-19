@@ -17,8 +17,9 @@ function createElement(type, config, ...children) {
   }
 
   type && type.defaultProps && filterConfig(type.defaultProps, props)
-
   return {
+    key: config.key || '',
+    ref: config.ref || '',
     type,
     props
   }
